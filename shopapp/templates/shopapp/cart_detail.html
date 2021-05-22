@@ -1,0 +1,205 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Icon -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Poppins:wght@600&family=Zen+Dots&display=swap"
+          rel="stylesheet">
+    <title>Ramziddin Aka</title>
+    <link rel="stylesheet" href="{% static 'cart/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'cart/css/bootstrap.css' %}">
+</head>
+<body>
+<section>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand fs-2" href="#"><h2>tarlet</h2></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto  mb-lg-0 left">
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 m-2" aria-current="page" href="#">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 m-2" aria-current="page" href="#">Jurnal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 m-2" aria-current="page" href="#">Abote us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fs-5 m-2" aria-current="page" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div>
+                    <i class="fas fa-search fa-2x"></i>
+                    <i class="fas fa-shopping-bag fa-2x icon"></i>
+                    <i class="fas fa-align-left fa-2x icon"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>
+<!-- Card -->
+<div class="container">
+    <div class="row d-flex">
+        <div class="col-9 mt-6">
+            <h3 class="mt-5"><span>Shopping Cart.</span></h3>
+            <div class="table mt-5 row d-flex border-bottom">
+                <h5 class="col-3">Product</h5>
+                <h5 class="col-3">size</h5>
+                <h5 class="col-3">Quantity</h5>
+                <h5 class="col-3">Total Price</h5>
+            </div>
+            {% load cart_tag %}
+            {{request.session.cart|length}}
+            {% for key,product in request.session.cart.items %}
+            
+             Total 
+            <div class="row d-flex mt-5">
+                <div class="border-0 d-flex col-3">
+                    <img src="{{ product.image }}" class="size" alt="Sumka">
+                    <div class="col-6">
+                        <h6 class="">{{product.name}}</h6>
+                        <p class="">Some quick.</p>
+                    </div>
+                </div>
+                <div class="div col-3 mt-2">
+                    <label for="li"></label>
+                    <select id="li" class="bg-light border-0">
+                        <option value="1">20 L</option>
+                        <option value="2">25 L</option>
+                        <option value="3">30 L</option>
+                        <option value="4">35 L</option>
+                        <option value="5">40 L</option>
+                    </select>
+                </div>
+                <div class="col-6">
+
+                    <p class="">{{product.price}} </p>
+                </div>
+                <div class="row-1 col-3 mt-2">
+                    <div class="right-i">
+                        <a href="{% url 'item_decrement' product.product_id %}">
+                            <button class="btn btn-light btn-sm minus">➖</button>
+                        </a>
+                    </div>
+                    <h3 id="value">{{product.quantity}}</h3>
+                    <div class="left-i">
+                        <a href="{% url 'item_increment' product.product_id %}">
+                            <button class="btn btn-light btn-sm plus">➕</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-3 row d-flex mt-2">
+                    <h5 class="col-6">${{ product.price|multiply:product.quantity }}</h5>
+                    <div class="col-6">
+                        <a href="{% url 'item_clear' product.product_id %}">
+                            <button class="btn btn-danger btn-sm float-right delete">X</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="row d-flex">
+                <div class="col-8"></div>
+                <div class="col-4 row d-flex mt-3 border-bottom">
+                    <div class="col-6">
+                        <h6 class="mt-2">Subtotal</h6>
+                        <h6 class="mt-2">Shipping</h6>
+                    </div>
+                    <div class="col-6">
+                        <h5>$470.98</h5>
+                        <h5>Free</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex mt-5">
+                <a href="{% url 'cart_clear' %}">Clear Cart</a>
+                <div class="col-8"><h3>Continue Shopping</h3>> </div>
+                <div class="col-2"><h4>Total</h4></div>
+                <div class="col-2"><h3>$470.98</h3></div>
+            </div>
+        </div>
+        <div class="col-3 mt-5 bg-light rounded">
+            <h3 class="mt-2"><span>Payment Info.</span></h3>
+            <div class="div">
+                <p class="mt-5">Payment Method</p>
+                <div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            <i class="far fa-credit-card"></i> Credit-card
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                               checked>
+                        <label class="form-check-label" for="flexRadioDefault2">
+                            <i class="fab fa-paypal"></i> PayPal
+                        </label>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <p>Name On Card:</p>
+                    <h5 class="mb-3">John Carter</h5>
+                </div>
+                <div class="mt-5">
+                    <p>Card Number:</p>
+                    <h6>**** **** **** 2153</h6>
+                </div>
+                <div class="mt-5 row d-flex">
+                    <div class="col-6">
+                        <p>Expiration Date:</p>
+                        <label for="li5"></label>
+                        <select id="li5" class="bg-light border-0">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                        </select>
+                        <label for="li6" class="m-md-2"></label>
+                        <select id="li6" class="bg-light border-0">
+                            <option value="01">2020</option>
+                            <option value="02">2021</option>
+                            <option value="03">2022</option>
+                            <option value="04">2023</option>
+                            <option value="05">2024</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <p>CCV:</p>
+                        <h5>156</h5>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary button-1">Check Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JavaScript Bootstrap -->
+<section>
+    <script src="static/cart/js/jquery.js"></script>
+    <script src="static/cart/js/popper.min.js"></script>
+    <script src="static/cart/js/bootstrap.js"></script>
+    <script src="static/cart/js/app.js"></script>
+</section>
+</body>
+</html>

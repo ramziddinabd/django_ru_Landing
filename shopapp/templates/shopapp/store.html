@@ -1,0 +1,15 @@
+<div class="row">
+    {% for product in products%}
+    <div class="col-lg-4">
+        <img src="{{ product.imageURL }}" alt="images">
+        <div class="">
+            <h6><strong>{{ product.title }}</strong></h6>
+            <hr>
+            <button data-product="{{ product.id }}" 
+            data-action="add" class="btn btn-outline-success add-btn update-cart">
+            Add to cart</button>
+            <h4>{{ product.price|floatformat:2 }}</h4>
+        </div>
+    </div>
+    {% endfor %}
+</div>

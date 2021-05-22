@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Poppins:wght@600&family=Zen+Dots&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Zen Dots', cursive;
+!important;
+    color: #999;
+}
+.left {
+    margin-left: 20vw;
+}
+li:hover{
+    background-color: #ffff;
+    border-radius: 5px;
+}
+
+.icon {
+    margin-left: 40px;
+}
+
+.fas {
+    color: blue;
+}
+
+.size {
+    width: 80px;
+    height: 60px;
+}
+
+.row-1 {
+    display: flex;
+}
+
+.select {
+    width: 20px;
+    height: 10px;
+}
+.button-1{
+    margin-top: 30px;
+    width: 220px;
+    height: 60px;
+}
